@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodApp.Views.LogoutView"
+			  xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+			 xmlns:helpers="clr-namespace:FoodApp.Helpers"
+			 xmlns:vm="clr-namespace:FoodApp.ViewModels"
+			 Visual="Material"
+			 BackgroundColor="Chocolate">
+	<ContentPage.BindingContext>
+		<vm:LogoutViewModel/>
+	</ContentPage.BindingContext>
+	<ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="100" />
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Button Text="Back" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="10,30" Clicked="Button_Clicked"/>
+			<Label Text="Foodies" FontSize="40" TextColor="WhiteSmoke" VerticalOptions="Start" HorizontalOptions="Center"/>
+			<Label x:Name="LabelName" FontSize="Subtitle" Margin="20,0" TextColor="WhiteSmoke" HorizontalOptions="Center" VerticalOptions="End"/>
+
+			<pancake:PancakeView BackgroundColor="WhiteSmoke" CornerRadius="60,60,0,0" Grid.Row="1">
+				<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+					<StackLayout IsVisible="{Binding IsCartExists}">
+						<Label Text="Cart, is not Empty" />
+						<Label Text="{Binding UserCartItemsCount, StringFormat='Your Cart COntains {0} Item'}"/>
+					</StackLayout>
+					<StackLayout>
+						<Label Text="Are you sure you want to logout ?"/>
+						<StackLayout Orientation="Horizontal" Spacing="10">
+							<Button Text="Yes, Logout" HorizontalOptions="Center" BackgroundColor="red" TextColor="Black"
+									CornerRadius="20" Command="{Binding LogoutCommand}" />
+							<Button Text="No, Goto Cart" HorizontalOptions="Center" BackgroundColor="LightGreen" CornerRadius="20"
+									Command="{Binding GotoCartCommand}" />
+						</StackLayout>
+					</StackLayout>
+				</StackLayout>
+			</pancake:PancakeView>
+
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

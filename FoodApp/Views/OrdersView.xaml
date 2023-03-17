@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodApp.Views.OrdersView"
+			 xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+			 xmlns:helpers="clr-namespace:FoodApp.Helpers"
+			 BackgroundColor="MediumSpringGreen"
+			 Visual="Material">
+    <ContentPage.Content>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="100"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<Button Text="Back" Grid.Row="0" HorizontalOptions="Start" VerticalOptions="Start" Margin="10,30" Clicked="Button_Clicked"/>
+
+			<Label Text="Foodies" FontSize="40" TextColor="WhiteSmoke" VerticalOptions="Start" HorizontalOptions="Center"/>
+			<Label x:Name="LabelName" FontSize="Subtitle" Margin="20,0" TextColor="WhiteSmoke" HorizontalOptions="Center" VerticalOptions="End"/>
+
+			<pancake:PancakeView BackgroundColor="WhiteSmoke" CornerRadius="60,60,0,0" Grid.Row="1">
+				<StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+					<Label Text="Thanks for Placing an order with us." TextColor="Black"/>
+					<Label Text="Please not down your Order ID for further Tracking" TextColor="Black"/>
+					<Label x:Name="LabelOrderID" TextColor="LightCoral" 
+						   FontSize="Subtitle"/>
+					<Button Text="View All Products" WidthRequest="200" BackgroundColor="PaleGoldenrod" HorizontalOptions="Center" CornerRadius="20" Clicked="Button_Clicked_1"/>
+				</StackLayout>
+				
+			</pancake:PancakeView>
+		</Grid>
+    </ContentPage.Content>
+</ContentPage>
