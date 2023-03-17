@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using FoodApp.Views;
-
+using FoodApp.Model;
+using SQLite;
 
 namespace FoodApp.ViewModels
 {
+	
 	public class LoginViewModel : BaseViewModel
 	{
+		private readonly SQLiteConnection _connection;
 		private string _UserName;
 		public string Username
 		{
@@ -75,6 +78,8 @@ namespace FoodApp.ViewModels
 		{
 			LoginCommand = new Command(async () => await LoginCommandAsync());
 			RegisterCommand = new Command(async () => await RegisterCommandAsync());
+			_connection = DependencyService.Get<ISQLite>().GetConnection();
+
 		}
 
 		private async Task RegisterCommandAsync()
@@ -87,7 +92,8 @@ namespace FoodApp.ViewModels
 				var userService = new UserService();
 				Result = await userService.RegisterUser(Username, Password);
 				if (Result)
-					await Application.Current.MainPage.DisplayAlert("Success", "User Registered", "Ok");
+				 await Application.Current.MainPage.DisplayAlert("Success", "User Registered", "Ok");
+				
 				else
 					await Application.Current.MainPage.DisplayAlert("Error", "User already exist with this Credentials", "Ok");
 			}
@@ -101,6 +107,17 @@ namespace FoodApp.ViewModels
 			}
 		}
 
+		private bool CreateCartTable()
+		{
+			try
+				{
+					_connection.CreateTable<CartItem>();
+					_connection.Close();
+					return true;
+				}
+			catch (Exception ex) {return false;}
+		}
+
 		private async Task LoginCommandAsync()
 		{
 
@@ -108,13 +125,16 @@ namespace FoodApp.ViewModels
 				return;
 			try
 			{
+				
 				IsBusy = true;
 				var userService = new UserService();
 				Result = await userService.LoginUser(Username, Password);
 				if ( Result)
 				{
+					CreateCartTable();
 					Preferences.Set("Username", Username);
 					await Application.Current.MainPage.Navigation.PushModalAsync(new ProductsView());
+					
 				}
 				else
 				{

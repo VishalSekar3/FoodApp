@@ -13,16 +13,16 @@ namespace FoodApp
 			InitializeComponent();
 
 			//MainPage = new NavigationPage(new SettingsPage()); //For Admin
-			
-			string uname = Preferences.Get("Username", String.Empty);
-			if (String.IsNullOrEmpty(uname))
-			{
-				MainPage = new LogInView();
-			}
-			else
-			{
-				MainPage = new ProductsView();
-			}
+			MainPage = new NavigationPage(new LogInView());
+			//string uname = Preferences.Get("Username", String.Empty);
+			//if (String.IsNullOrEmpty(uname))
+			//{
+			//	MainPage = new LogInView();
+			//}
+			//else
+			//{
+			//	MainPage = new ProductsView();
+			//}
 		}
 
 		protected override void OnStart()

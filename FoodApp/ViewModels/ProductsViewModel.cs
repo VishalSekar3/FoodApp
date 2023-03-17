@@ -54,7 +54,7 @@ namespace FoodApp.ViewModels
         public ProductsViewModel()
         {
             var uname = Preferences.Get("Username", string.Empty);
-            if (String.IsNullOrEmpty(uname))
+            if (string.IsNullOrEmpty(uname))
                 UserName = "Guest";
             else UserName = uname;
 
