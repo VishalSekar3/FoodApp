@@ -12,10 +12,8 @@ namespace FoodApp
 		{
 			InitializeComponent();
 
-			//MainPage = new MainPage();
-			//MainPage = new LogInView();
-			//MainPage = new NavigationPage(new SettingsPage());
-			//MainPage = new NavigationPage(new LogInView());
+			//MainPage = new NavigationPage(new SettingsPage()); //For Admin
+			
 			string uname = Preferences.Get("Username", String.Empty);
 			if (String.IsNullOrEmpty(uname))
 			{

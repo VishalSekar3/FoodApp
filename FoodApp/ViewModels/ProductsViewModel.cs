@@ -48,6 +48,7 @@ namespace FoodApp.ViewModels
 
         public Command ViewCartCommand{ get; set; }
         public Command LogoutCommand{ get; set; }
+        public Command SearchViewCommand{ get; set; }
 
 
         public ProductsViewModel()
@@ -58,16 +59,28 @@ namespace FoodApp.ViewModels
             else UserName = uname;
 
             UserCartItemsCount = new CartItemService().GetUserCartCount();
-
             Categories = new ObservableCollection<Category>();
             LatestItems= new ObservableCollection<FoodItem>();
 
             ViewCartCommand = new Command(async () => await ViewCartAsync());
             LogoutCommand = new Command(async () => await LogoutAsync());
+            SearchViewCommand = new Command(async () => await SearchViewAsync());
 
             GetCategories();
             GetLatestItems();
         }
+
+		private async Task SearchViewAsync()
+		{
+            if (SearchText == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Search bar is empty", "ok");
+            }
+            else
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync(new SearchResultView(SearchText));
+            }
+		}
 
 		private async Task LogoutAsync()
 		{
